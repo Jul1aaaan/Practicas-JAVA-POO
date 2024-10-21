@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+//        System.out.println("Hello world!");
+//
+//        String name = "Julian";
+//        Integer age = 21;
+//        Double heigth = 1.72;
+//
+//        System.out.println("Mi nombre es " + name + " tengo " + age + " y mido " + heigth + " metros.");
+//
+//        if(age > 15 && heigth >= 1.5){
+//            System.out.println("Podes subir!!");
+//        }
+//        else{
+//            System.out.println("No podes subir!!");
+//        }
+//
+//        for(Integer i = 0; i < 10; i++){
+//            System.out.println("Hello World");
+//        }
+
+//        Simple dato
+//        int number = 3;
+//
+//        Objeto con metodos
+//        Integer anotherNumber = 3;
+
+//        System.out.println(addTwoNumber(2.0, 5.5));
+
+        Scanner scanner = new Scanner(System.in);
+
+
+        Integer firstNumber = scanner.nextInt();
+
+        Integer secondNumber = scanner.nextInt();
+
+        Integer addition = firstNumber + secondNumber;
+
+        System.out.println(firstNumber + " + " + secondNumber + " = " + addition);
+
+        String name = scanner.next();
+
+        System.out.println(name);
+
+
+    }
+
+//    public static Double addTwoNumber(Double numberOne, Double numberTwo){
+//        return numberOne + numberTwo;
+//    }
+}

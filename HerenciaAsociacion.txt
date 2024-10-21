@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Owner owner = new Owner("Julian", new Vehicle("123", "Blue", 4));
+
+        owner.setVehicle(new VehicleMoto("123", "Green", "Yamaha"));
+
+
+
+    }
+}
+
+public class Vehicle {
+    private String licensePlate;
+    private String color;
+    private Integer numberOfWheels;
+
+    public Vehicle(String licensePlate, String color, Integer numberOfWheels) {
+        this.licensePlate = licensePlate;
+        this.color = color;
+        this.numberOfWheels = numberOfWheels;
+    }
+
+
+}
+
+public class VehicleMoto extends Vehicle{
+
+    private String brand;
+
+    public VehicleMoto(String licensePlate, String color, String brand) {
+        super(licensePlate, color, 2);
+        this.brand = brand;
+    }
+}
+
+
+public class VehicleCar extends Vehicle{
+
+    public VehicleCar(String licensePlate, String color ) {
+        super(licensePlate, color, 4);
+    }
+}
+

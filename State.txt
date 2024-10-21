@@ -1,0 +1,107 @@
+
+public class Main {
+    public static void main(String[] args) {
+
+        Tamagochi tamagochi = new Tamagochi("Tamagochi");
+
+        System.out.println(tamagochi.getCurrentState());
+
+        tamagochi.eat();
+
+        System.out.println(tamagochi.getCurrentState());
+
+        tamagochi.eat();
+
+        System.out.println(tamagochi.getCurrentState());
+
+        tamagochi.sleep();
+
+        System.out.println(tamagochi.getCurrentState());
+
+    }
+}public class Tamagochi {
+
+    private String name;
+    private TamagochiState currentState;
+
+    public Tamagochi(String name) {
+        this.name = name;
+        this.currentState = new TamagochiStateHappy();
+    }
+
+    public void play(){
+        this.currentState = this.currentState.play();
+    }
+
+    public void eat(){
+        this.currentState = currentState.getFood();
+    }
+    public void sleep(){
+        this.currentState = currentState.goToSleep();
+    }
+
+    public TamagochiState getCurrentState() {
+        return currentState;
+    }
+}
+public interface TamagochiState {
+
+    public TamagochiState play();
+
+    public TamagochiState getFood();
+
+    public TamagochiState goToSleep();
+
+
+}
+public class TamagochiStateHungry implements TamagochiState{
+
+
+    @Override
+    public TamagochiState play() {
+        return this;
+    }
+
+    @Override
+    public TamagochiState getFood() {
+        return new TamagochiStateHappy();
+    }
+
+    @Override
+    public TamagochiState goToSleep() {
+        return this;
+    }
+}
+public class TamagochiStateTired implements TamagochiState{
+    @Override
+    public TamagochiState play() {
+        return this;
+    }
+
+    @Override
+    public TamagochiState getFood() {
+        return this;
+    }
+
+    @Override
+    public TamagochiState goToSleep() {
+        return new TamagochiStateHappy();
+    }
+}
+public class TamagochiStateHappy implements TamagochiState{
+
+    @Override
+    public TamagochiState play() {
+        return this;
+    }
+
+    @Override
+    public TamagochiState getFood() {
+        return new TamagochiStateTired();
+    }
+
+    @Override
+    public TamagochiState goToSleep() {
+        return new TamagochiStateHungry();
+    }
+}

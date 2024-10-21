@@ -1,0 +1,74 @@
+
+public class Main {
+    public static void main(String[] args) {
+
+        Helicopter helicopter = new Helicopter("Green");
+
+        helicopter.turnOn();
+        helicopter.fly();
+
+        Bird bird = new Bird();
+
+        bird.fly();
+
+        Flyable flyable = bird;
+
+    }
+}
+
+public class Vehicle {
+
+    private Integer numberOfWheels;
+
+    private String color;
+
+    protected Boolean itsOn;
+
+    public Vehicle(Integer numberOfWheels, String color){
+        this.numberOfWheels = numberOfWheels;
+        this.color = color;
+        this.itsOn = false;
+    }
+
+    public void turnOn(){
+        if(!itsOn){
+            itsOn = true;
+            System.out.println("Se prendio el vehiculo");
+        }else {
+            System.out.println("Ya esta prendido");
+        }
+    }
+
+}
+public class Car extends Vehicle{
+
+    public Car(String color) {
+        super(4, color);
+    }
+}
+public class Helicopter extends Vehicle implements Flyable{
+
+
+    public Helicopter(String color) {
+        super(2, color);
+    }
+
+    @Override
+    public void fly(){
+        if(itsOn){
+            System.out.println("El Helicoptero se esta elevando");
+        }
+    }
+}
+public class Bird implements Flyable{
+
+    @Override
+    public void fly(){
+        System.out.println("Soy un pajaro y estoy moviendo las alas");
+    }
+}
+public interface Flyable {
+
+    public void fly();
+
+}

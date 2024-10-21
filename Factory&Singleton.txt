@@ -1,0 +1,82 @@
+
+public class Main {
+    public static void main(String[] args) {
+
+        ItemFactory itemFactory = ItemFactory.getInstance();
+
+        Shop shop = new Shop();
+
+        shop.addItem(itemFactory.createItem(1));
+        shop.addItem(itemFactory.createItem(2));
+        shop.addItem(itemFactory.createItem(3));
+
+        System.out.println(shop.calculatePrice());
+    }
+}
+public class Item {
+
+    private String name;
+    private Double price;
+
+    public Item(String name, Double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+
+public class Shop {
+
+    private List<Item> itemList;
+
+
+    public Shop(){
+        this.itemList = new ArrayList<>();
+    }
+
+    public void addItem(Item item){
+        itemList.add(item);
+    }
+
+    public Double calculatePrice(){
+        Double totalPrice = 0.0;
+
+        for (Item item : itemList) {
+            totalPrice += item.getPrice();
+        }
+        return totalPrice;
+    }
+}
+public class ItemFactory {
+
+    private static ItemFactory instance;
+
+    private ItemFactory(){
+
+    }
+
+    public static ItemFactory getInstance(){
+        if(instance == null){
+            instance = new ItemFactory();
+        }
+
+        return instance;
+    }
+
+    public Item createItem(Integer id){
+        switch (id){
+            case (1):
+                return new Item("Hamburger", 5.0);
+            case (2):
+                return new Item("French Fries", 2.0);
+            case (3):
+                return new Item("Ice Cream", 1.5);
+        }
+        return null;
+    }
+}

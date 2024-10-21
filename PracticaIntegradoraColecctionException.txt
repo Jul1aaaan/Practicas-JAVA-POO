@@ -1,0 +1,199 @@
+
+public class Main {
+    public static void main(String[] args) {
+
+
+        University university = new University("Monster University");
+
+        university.generateStudent(1, "Mike");
+        university.generateCourse(300, "Algebra");
+
+        try{
+            university.suscribeStudent(300, 1);
+        }catch (StudentNotFoundException e){
+            e.printStackTrace();
+        }catch (CourseNotFoundException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+}public class Student {
+
+    private Integer id;
+
+    private String name;
+
+    public Student(Integer id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+import java.util.HashSet;
+import java.util.Set;
+
+public class Course {
+
+    private Integer id;
+
+    private String subject;
+
+    private Set<Student> studentSet;
+
+    public Course(Integer id, String subject){
+        this.id = id;
+        this.subject = subject;
+        studentSet = new HashSet<>();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void addStudent(Student student) {
+        this.studentSet.add(student);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", studentSet=" + studentSet +
+                '}';
+    }
+}
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class University {
+    private String name;
+
+    private Set<Course> courseSet;
+
+    private Set<Student> studentSet;
+
+    public University(String name) {
+        this.name = name;
+        courseSet = new HashSet<>();
+        studentSet = new HashSet<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void generateStudent(Integer id, String name) {
+        this.studentSet.add(new Student(id, name));
+    }
+
+    public void generateCourse(Integer id, String subject) {
+        this.courseSet.add(new Course(id, subject));
+    }
+
+    public void suscribeStudent(Integer idCourse, Integer idStudent ) throws Exception{
+        Course course = findCourse(idCourse);
+        Student student = findStudent(idStudent);
+
+        if(course == null){
+            throw new CourseNotFoundException(idCourse + "no es un ID valido");
+        }
+
+        if (student == null){
+            throw new StudentNotFoundException(idStudent + "no es un ID valido");
+        }
+
+        System.out.println(student.getName() + " fue suscripto al curso de " + course.getSubject());
+    }
+
+    private Course findCourse(Integer courseId) {
+        Course wantedCourse = null;
+
+        for (Course course :
+                courseSet) {
+            if (course.getId().equals(courseId)) {
+                wantedCourse = course;
+            }
+        }
+
+        return wantedCourse;
+    }
+
+    private Student findStudent(Integer studentId) {
+        Student wantedStudent = null;
+
+        for (Student student :
+                studentSet) {
+            if (student.getId().equals(studentId)) {
+                wantedStudent = student;
+            }
+        }
+
+        return wantedStudent;
+    }
+
+    @Override
+    public String toString() {
+        return "University{" +
+                "name='" + name + '\'' +
+                ", courseSet=" + courseSet +
+                ", studentSet=" + studentSet +
+                '}';
+    }
+}
+public class CourseNotFoundException extends Exception{
+
+    public CourseNotFoundException(String message) {
+        super(message);
+    }
+}
+public class StudentNotFoundException extends Exception{
+
+    public StudentNotFoundException(String message) {
+        super(message);
+    }
+}

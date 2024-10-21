@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Animal animal = new Dog();
+
+//        Casteo donde le prometo que le estoy pasando Dog
+        Dog dog = (Dog) animal;
+
+        dog.fetchBall();
+
+    }
+}

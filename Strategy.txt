@@ -1,0 +1,95 @@
+
+public class Main {
+    public static void main(String[] args) {
+
+
+        Location location1 = new Location(50.0, 100.0);
+        Location location2 = new Location(20.0, 300.0);
+
+        Map map = new Map(location1, new MovementStrategyWalking());
+
+        System.out.println(map.calculateTimeToLocation(location2));
+
+        map.setCurrentStrategy(new MovementStrategyCar(true));
+
+        System.out.println(map.calculateTimeToLocation(location2));
+    }
+}
+
+
+public class Map {
+
+    private Location currentLocation;
+
+    private MovementStrategy currentStrategy;
+
+    public Map(Location currentLocation, MovementStrategy currentStrategy) {
+        this.currentLocation = currentLocation;
+        this.currentStrategy = currentStrategy;
+    }
+
+    public Double calculateTimeToLocation(Location location){
+        return currentStrategy.calculateTime(currentLocation.calculateDistance(location));
+    }
+
+    public void setCurrentStrategy(MovementStrategy currentStrategy) {
+        this.currentStrategy = currentStrategy;
+    }
+}
+public class Location {
+    private Double latitude;
+
+    private Double longitude;
+
+    public Location(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Double calculateDistance(Location location){
+        Double latitudeDistance = Math.pow(this.latitude - location.getLatitude(), 2);
+        Double longitudeDistance = Math.pow(this.longitude - location.getLongitude(), 2);
+        return Math.sqrt(latitudeDistance + longitudeDistance);
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+}
+public interface MovementStrategy {
+
+    public Double calculateTime(Double distance);
+}
+public class MovementStrategyWalking implements MovementStrategy{
+    @Override
+    public Double calculateTime(Double distance) {
+        return distance / 5;
+    }
+}
+public class MovementStrategyBike implements MovementStrategy{
+    @Override
+    public Double calculateTime(Double distance) {
+        return distance / 25;
+    }
+}
+public class MovementStrategyCar implements MovementStrategy{
+
+    private Boolean traffic;
+
+    public MovementStrategyCar(Boolean traffic) {
+        this.traffic = traffic;
+    }
+
+    @Override
+    public Double calculateTime(Double distance) {
+        if (traffic){
+            return distance / 40;
+        }else {
+            return distance / 80;
+        }
+    }
+}

@@ -1,0 +1,53 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+public class Main {
+    public static void main(String[] args) {
+
+//        Map<String, String> countryCapitals = new HashMap<>();
+//
+//        countryCapitals.put("Argentina", "Buenos Aires");
+//        countryCapitals.put("Colombia", "Bogota");
+//        countryCapitals.put("Uruguay", "Montevideo");
+//        countryCapitals.put("France", "Paris");
+//
+//        System.out.println(countryCapitals);
+//
+//        countryCapitals.remove("France");
+//
+//        System.out.println(countryCapitals);
+
+        Map<Integer, Student> studentMap = new HashMap<>();
+
+        studentMap.put(1, new Student(1, "Julian", 7.4));
+        studentMap.put(2, new Student(2, "Maria", 9.4));
+        studentMap.put(3, new Student(3, "Sebastian", 10.0));
+
+        System.out.println(studentMap);
+    }
+}
+public class Student {
+
+    private Integer id;
+    private String name;
+    private Double averageGrades;
+
+
+    public Student(Integer id, String name, Double averageGrades) {
+        this.id = id;
+        this.name = name;
+        this.averageGrades = averageGrades;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", averageGrades=" + averageGrades +
+                '}';
+    }
+}

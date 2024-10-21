@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Animal animal = new Animal();
+
+        animal.makeSound();
+
+        animal = new Cat();
+
+        animal.makeSound();
+
+
+    }
+}
+
+public class Animal {
+
+    public void makeSound(){
+        System.out.println("???");
+    }
+}
+
+public class Dog extends Animal{
+
+    @Override
+    public void makeSound(){
+        System.out.println("Guau Guau");
+    }
+}
+
+public class Cat extends Animal{
+
+    @Override
+    public void makeSound() {
+        System.out.println("Miau miau");;
+    }
+}

@@ -1,0 +1,54 @@
+
+public class Main {
+    public static void main(String[] args) {
+
+        ShoppingCart shoppingCart = new ShoppingCart();
+
+        try {
+            shoppingCart.addProduct(new Product("Remera", 100.0));
+            shoppingCart.addProduct(new Product("Pantalon", 200.0));
+            shoppingCart.addProduct(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+}
+public class Product {
+
+    private String name;
+    private Double price;
+
+    public Product(String name, Double price){
+        this.name = name;
+        this.price = price;
+    }
+
+
+}
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShoppingCart {
+
+    private List<Product> productList;
+
+    public ShoppingCart(){
+        productList = new ArrayList<>();
+    }
+
+    public void addProduct(Product product) throws Exception{
+        if(product == null){
+            throw new ShoppingCartException("No se puede agregar un nulo");
+        }else {
+            productList.add(product);
+        }
+    }
+}
+public class ShoppingCartException extends Exception{
+
+    public ShoppingCartException(String message) {
+        super(message);
+    }
+}

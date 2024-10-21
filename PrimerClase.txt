@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        BankAccount bankAccount = new BankAccount("Julian");
+
+        bankAccount.deposit(300.0);
+        bankAccount.deposit(500.0);
+        bankAccount.withdraw(100.0);
+        bankAccount.withdraw(2000.0);
+
+    }
+}
+
+
+
+import java.util.prefs.BackingStoreException;
+
+public class BankAccount {
+
+    private String accountOwner;
+
+    private Double balance;
+
+    public BankAccount(String accountOwner){
+        this.accountOwner = accountOwner;
+        this.balance = 0.0;
+
+    }
+
+    public void deposit(Double amount){
+        this.balance += amount;
+        System.out.println("Depositaste $" + amount);
+        System.out.println("Tu balance es de $" + this.balance);
+    }
+
+    public void withdraw(Double amount){
+        if (this.balance >= amount){
+            this.balance -= amount;
+            System.out.println("Retiraste $" + amount);
+            System.out.println("Tu balance es de $" + this.balance);
+        }
+        else{
+            System.out.println("No tienes el suficiente dinero para retirar esa cantidad!");
+        }
+
+    }
+
+}

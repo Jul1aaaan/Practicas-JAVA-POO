@@ -1,0 +1,164 @@
+
+public class Main {
+    public static void main(String[] args) {
+
+        CompleteObject completeObject = new CompleteObject();
+
+        completeObject.addGeometricFigure(GeometricFigureFactory.CODE_CIRCLE);
+        completeObject.addGeometricFigure(GeometricFigureFactory.CODE_RECTANGLE);
+        completeObject.addGeometricFigure(GeometricFigureFactory.CODE_SQUARE);
+        completeObject.addGeometricFigure(GeometricFigureFactory.CODE_TRIANGLE);
+        completeObject.addGeometricFigure("Pedro");
+
+
+        System.out.println(completeObject.calculateTotalArea());
+    }
+}
+public interface GeometricFigure {
+
+    public Double calculateArea();
+}
+public class Circle implements GeometricFigure{
+
+    private Double ratio;
+
+    public Circle(Double ratio) {
+        this.ratio = ratio;
+    }
+
+    @Override
+    public Double calculateArea(){
+        return Math.PI * ratio * ratio;
+    }
+}
+public class Rectangle implements GeometricFigure{
+
+    private Double base;
+
+    private Double height;
+
+    public Rectangle(Double base, Double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    @Override
+    public Double calculateArea(){
+        return base * height;
+    }
+}
+public class Triangle implements GeometricFigure{
+
+    private Double base;
+
+    private Double height;
+
+    public Triangle(Double base, Double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    @Override
+    public Double calculateArea(){
+        return base * height / 2;
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+
+public class GeometricFigureComposite implements GeometricFigure{
+
+    private List<GeometricFigure> figureList;
+
+    public GeometricFigureComposite() {
+        this.figureList = new ArrayList<>();
+    }
+
+    public void addGeometricFigure(GeometricFigure geometricFigure){
+        figureList.add(geometricFigure);
+    }
+
+    @Override
+    public Double calculateArea(){
+        Double finalArea = 0.0;
+
+        for (GeometricFigure geometricFigure : figureList) {
+            finalArea += geometricFigure.calculateArea();
+        }
+
+        return finalArea;
+    }
+}
+public class GeometricFigureFactory {
+
+    public static final String CIRCLE = "Circle";
+    private static GeometricFigureFactory instance;
+
+    public static final String CODE_CIRCLE = "Circle";
+    public static final String CODE_RECTANGLE = "Rectangle";
+    public static final String CODE_SQUARE = "Square";
+    public static final String CODE_TRIANGLE = "Triangle";
+
+    private GeometricFigureFactory(){
+    }
+
+    public static GeometricFigureFactory getInstance(){
+        if (instance == null){
+            instance = new GeometricFigureFactory();
+        }
+        return instance;
+    }
+
+    public GeometricFigure generateGeometricFigure(String code) throws GeometricFigureFactoryException{
+
+        switch (code){
+            case CODE_CIRCLE:
+                return new Circle(2.0);
+            case CODE_RECTANGLE:
+                return new Rectangle(5.0, 6.0);
+            case CODE_SQUARE:
+                return new Rectangle(3.0, 3.0);
+            case CODE_TRIANGLE:
+                return new Triangle(10.0, 4.0);
+        }
+        throw new GeometricFigureFactoryException(code + " is not a valid code");
+    }
+}
+public class GeometricFigureFactoryException extends Exception{
+
+    public GeometricFigureFactoryException(String message) {
+        super(message);
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+
+public class CompleteObject{
+
+    private List<GeometricFigure> geometricFigureList;
+
+    public CompleteObject() {
+        this.geometricFigureList = new ArrayList<>();
+    }
+
+    public void addGeometricFigure(String code){
+
+        try {
+            GeometricFigure geometricFigure = GeometricFigureFactory.getInstance().generateGeometricFigure(code);
+            geometricFigureList.add(geometricFigure);
+        }
+        catch(GeometricFigureFactoryException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Double calculateTotalArea(){
+        Double totalArea = 0.0;
+
+        for (GeometricFigure geometricFigure : geometricFigureList) {
+            totalArea += geometricFigure.calculateArea();
+        }
+
+        return totalArea;
+    }
+}

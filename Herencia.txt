@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Worker worker = new Worker("Julian", 1000.0);
+
+        System.out.println( worker.getName() + " tiene un sueldo de $" + worker.calcularSalary());
+
+        WorkerExtraHours workerExtraHours = new WorkerExtraHours("Maria", 1000.0, 3, 100.0);
+
+        System.out.println( workerExtraHours.getName() + " tiene un sueldo de $" + workerExtraHours.calcularSalary());
+
+    }
+}
+
+public class Worker {
+    private String name;
+    private Double salary;
+
+    public Worker(String name, Double salary){
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public Double calcularSalary(){
+        return this.salary;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+}
+
+
+public class WorkerExtraHours extends Worker {
+
+    private Integer extraHoursWorked;
+
+    private Double pricePerHour;
+
+    public WorkerExtraHours(String name, Double salary, Integer extraHoursWorked, Double pricePerHour) {
+        super(name, salary);
+        this.extraHoursWorked = extraHoursWorked;
+        this.pricePerHour = pricePerHour;
+    }
+
+    @Override
+    public Double calcularSalary(){
+        return super.calcularSalary() + (extraHoursWorked * pricePerHour);
+    }
+
+
+}

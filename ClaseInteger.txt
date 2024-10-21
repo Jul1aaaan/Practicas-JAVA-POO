@@ -1,0 +1,13 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Clase Integer
+        Integer number = Integer.parseInt("76");
+
+        System.out.println(number);
+    
+
+    }
+}

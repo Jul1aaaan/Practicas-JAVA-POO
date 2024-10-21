@@ -1,0 +1,69 @@
+import java.awt.image.CropImageFilter;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Circle circle = new Circle(10.0);
+
+        Square square = new Square(25.0);
+
+        System.out.println("El area del circulo es: " + circle.calculateArea());
+
+        System.out.println("El area del cuadrado es: " + square.calculateArea());
+
+    }
+}
+
+public abstract class GeometricFigure {
+
+    private Integer sides;
+
+    public GeometricFigure(Integer sides){
+        this.sides = sides;
+    }
+
+    public abstract Double calculateArea();
+}
+
+
+public class Circle extends GeometricFigure{
+
+    private Double diameter;
+
+    public Circle(Double diameter){
+        super(0);
+        this.diameter = diameter;
+    }
+
+    @Override
+    public Double calculateArea() {
+        return Math.pow(getRadio(), 2) * Math.PI ;
+    }
+
+
+//    @Override
+//    public Double calculateArea() {
+//        return 3.14 * getRadio() * getRadio();
+//    }
+    private Double getRadio(){
+        return diameter / 2;
+    }
+
+}
+
+
+public class Square extends GeometricFigure{
+
+    private Double sideLenght;
+
+    public Square(Double sideLenght){
+        super(4);
+        this.sideLenght = sideLenght;
+    }
+
+    @Override
+    public Double calculateArea() {
+        return sideLenght * sideLenght;
+    }
+}
